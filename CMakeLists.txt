@@ -1,8 +1,7 @@
-cmake_minimum_required(VERSION 2.6.4)
+cmake_minimum_required(VERSION 3.10.2)
 project(LimitOrderMatcher)
 
-if (Boost_NO_SYSTEM_PATHS)
-  set(BOOST_ROOT "/fs02/home/thirdparty//boost/1.63.0/$PLATFORM/")
+if (Boost_NO_SYSTEM_PATHS)  
   set(BOOST_INCLUDE_DIRS  "${BOOST_ROOT}/include")
   set(BOOST_LIBRARY_DIRS  "${BOOST_ROOT}/lib")
 endif (Boost_NO_SYSTEM_PATHS)

@@ -60,10 +60,10 @@ void InputOrderProcessor::ProcessOrderInput(const stringvector& inputorder)
         uint64 prev_ord_id = stoll(inputorder[2]);
         QueryOrderLevelResult result = m_LimitOrderBook.QueryOrderStatus(prev_ord_id);
         if(result.m_enOrdStatus == enOrdStatus::ORDER_STAT_REPLACED || result.m_enOrdStatus ==  enOrdStatus::ORDER_STAT_NEW)
-            cout << "( open )"  ;
+            cout << " open "  ;
         else
             cout << GetOrderStatusStr(result.m_enOrdStatus)  ;
-            cout << " ( " << result.m_QueuePosition  << " ) " << endl;
+            cout << " queuepos " << result.m_QueuePosition   << endl;
     }
     //m_LimitOrderBook.PrintOrderBook();
 }
