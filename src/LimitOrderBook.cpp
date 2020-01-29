@@ -39,7 +39,18 @@ void LimitOrderBook::Add(uint64 ord_id,enOrdSide side, uint64 price, uint64 quan
         return;
     }
     shared_ptr<OrderInfo> pOrder(new OrderInfo(ord_id, side, price, quantity, enOrdStatus::ORDER_STAT_NEW));
-    Add(pOrder);
+    if(pOrder)
+    {
+        auto pair = m_AllOrderInfo.emplace(pOrder->GetOrderID(), pOrder);
+        if (pair.second)
+            Add(pOrder);
+        else
+        	cout << "failed to emplace the object into map." << endl;
+    }
+    else
+    {
+        cout << "failed to create the orderinfo object." << endl;
+    }
 }
 
 void LimitOrderBook::Add(const std::shared_ptr<OrderInfo>& pOrderInfo)
@@ -61,11 +72,9 @@ void LimitOrderBook::Add(const std::shared_ptr<OrderInfo>& pOrderInfo)
         cout << "Duplicate OrderInfo, rejecting ord_id( " << pOrderInfo->GetOrderID() << " )" << endl;
         return;
     }
-    auto pair = m_AllOrderInfo.emplace(pOrderInfo->GetOrderID(), pOrderInfo);
-    if (pair.second)
-    {
-        pOrderInfo->GetSide() == enOrdSide::SIDE_BID ? AddOrder(m_mapBidOrderBook, pOrderInfo) : AddOrder(m_mapAskOrderBook, pOrderInfo);
-    }
+
+    pOrderInfo->GetSide() == enOrdSide::SIDE_BID ? AddOrder(m_mapBidOrderBook, pOrderInfo) : AddOrder(m_mapAskOrderBook, pOrderInfo);
+
     OrderMatching();
 }
 
