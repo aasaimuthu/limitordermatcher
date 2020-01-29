@@ -255,6 +255,7 @@ QueryOrderLevelResult LimitOrderBook::QueryOrderStatus(uint64 ord_id)
     if (pOrderInfo == nullptr)
     {
         cout << " order not found to query the order status ord_id( " << ord_id << " )" << endl;
+        return orderstatus;
     }
     return pOrderInfo->GetSide() == enOrdSide::SIDE_BID ? QueryOrderStatus(m_mapBidOrderBook,pOrderInfo) : QueryOrderStatus(m_mapAskOrderBook,pOrderInfo);
 }
