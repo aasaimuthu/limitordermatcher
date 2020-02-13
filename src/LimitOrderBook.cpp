@@ -154,6 +154,7 @@ void LimitOrderBook::Cancel(uint64 ord_id)
     }
     enOrdStatus ordstatus = pOrderInfo->GetOrderStatus();
     pOrderInfo->GetSide() == enOrdSide::SIDE_BID ? CancelBookOrder(m_mapBidOrderBook, pOrderInfo, ordstatus) : CancelBookOrder(m_mapAskOrderBook, pOrderInfo, ordstatus);
+    OrderMatching();
 }
 
 void LimitOrderBook::Cancel(std::shared_ptr<OrderInfo> pOrderInfo)
